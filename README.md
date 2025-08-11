@@ -8,7 +8,7 @@ This GitHub Action fetches secrets from HashiCorp Vault and replaces placeholder
 - `vault-token`: The token for authenticating with Vault. (Required)
 - `vault-secret-path`: The path to the secrets in Vault. (Required)
 - `template-file`: The path to the template file. (Required)
-- `output-file`: The path to the output file. (Required)
+- `output-file`: The path to the output file. The action will automatically create any missing directories in the output path. (Required)
 
 ## Example Usage
 
@@ -36,6 +36,28 @@ jobs:
           template-file: '.env.template'
           output-file: '.env'
 ```
+## Test Secret Setup
+
+Add test secrets to Vault using these commands:
+
+```bash
+# Authenticate to Vault (replace with your token)
+vault login
+
+# Write test secrets to the required path
+vault kv put secret/data/test \
+  db_user="test_user" \
+  db_password="secure_password_123" \
+  api_key="test_api_key_abc123"
+```
+
+Note: Templates should use placeholders without dots: `{{ key }}`
+
+Verify the secrets were created:
+```bash
+vault kv get secret/data/test
+```
+
 ## Testing
 
 To test the action locally:
@@ -59,5 +81,3 @@ act -s VAULT_TOKEN=$(cat .env | grep VAULT_TOKEN | cut -d '=' -f2) -j test
 ```
 
 4. Verify output files in `output/` directory
-
-> **Note**: Ensure your Vault instance has the test secrets at path `secret/data/test` with keys `db_user`, `db_password`, and `api_key`.

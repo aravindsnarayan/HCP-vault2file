@@ -1,3 +1,3 @@
 [database]
-user = {{ .db_user }}
-password = {{ .db_password }}
+user = {{ db_user }}
+password = {{ db_password }}

@@ -35819,6 +35819,7 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(2186);
 const axios = __nccwpck_require__(8757);
 const fs = (__nccwpck_require__(7147).promises);
+const path = __nccwpck_require__(1017);
 
 async function run() {
   try {
@@ -35849,6 +35850,9 @@ async function run() {
     }
 
     // Write to output file
+    const outputDir = path.dirname(outputFile);
+    await fs.mkdir(outputDir, { recursive: true });
+    
     await fs.writeFile(outputFile, template);
 
     core.info(`Successfully replaced secrets in ${templateFile} and wrote to ${outputFile}`);
