@@ -1,0 +1,24 @@
+name: 'HashiCorp Vault Secret Replacer'
+description: 'Fetches secrets from HashiCorp Vault and replaces placeholders in a template file.'
+author: 'Gemini'
+
+inputs:
+  vault-url:
+    description: 'The URL of the HashiCorp Vault instance.'
+    required: true
+  vault-token:
+    description: 'The token for authenticating with Vault.'
+    required: true
+  vault-secret-path:
+    description: 'The path to the secrets in Vault.'
+    required: true
+  template-file:
+    description: 'The path to the template file.'
+    required: true
+  output-file:
+    description: 'The path to the output file.'
+    required: true
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

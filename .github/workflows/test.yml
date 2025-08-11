@@ -1,0 +1,15 @@
+name: Test Vault Action
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test Action
+        uses: ./
+        with:
+          vault-url: 'https://vault.example.com'
+          vault-token: ${{ secrets.VAULT_TOKEN }}
+          vault-secret-path: 'secret/data/test'
+          template-files: 'templates/*.tpl'
+          output-directory: 'output'
