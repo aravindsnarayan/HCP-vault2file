@@ -71,3 +71,22 @@ jobs:
       
       - name: Deploy Application
         run: ./deploy.sh
+
+## Publishing Releases
+
+To create releases, you need to:
+
+1. Create a Personal Access Token (PAT) with `repo` scope
+2. Add it as a secret named `PAT` in your repository
+3. Update the release workflow to use:
+```yaml
+env:
+  GITHUB_TOKEN: ${{ secrets.PAT }}
+```
+
+### Troubleshooting
+
+If you get "Resource not accessible by integration" errors:
+1. Ensure you've created a PAT with `repo` scope
+2. Add it as a repository secret named `PAT`
+3. Update the release workflow to use `secrets.PAT` instead of `secrets.GITHUB_TOKEN`
