@@ -6,8 +6,11 @@ inputs:
   vault-url:
     description: 'The URL of the HashiCorp Vault instance.'
     required: true
-  vault-token:
-    description: 'The token for authenticating with Vault.'
+  vault-username:
+    description: 'Username for Vault authentication.'
+    required: true
+  vault-password:
+    description: 'Password for Vault authentication.'
     required: true
   vault-secret-path:
     description: 'The path to the secrets in Vault.'

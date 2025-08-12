@@ -9,16 +9,19 @@ jobs:
         uses: ./
         with:
           vault-url: ${{ vars.VAULT_ADDR }}
-          vault-token: ${{ secrets.VAULT_TOKEN }}
+          vault-username: ${{ secrets.VAULT_USERNAME }}
+          vault-password: ${{ secrets.VAULT_PASSWORD }}
           vault-secret-path: 'secret/data/data/test'
           template-file: 'templates/config.tpl'
           output-file: 'output/config.ini'
-
+        
       - name: Test Action (Credentials)
         uses: ./
         with:
           vault-url: ${{ vars.VAULT_ADDR }}
-          vault-token: ${{ secrets.VAULT_TOKEN }}
+          vault-username: ${{ secrets.VAULT_USERNAME }}
+          vault-password: ${{ secrets.VAULT_PASSWORD }}
           vault-secret-path: 'secret/data/data/test'
           template-file: 'templates/credentials.tpl'
           output-file: 'output/credentials.ini'
+

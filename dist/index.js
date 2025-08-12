@@ -35825,20 +35825,28 @@ async function run() {
   try {
     // Get inputs
     const vaultUrl = core.getInput('vault-url', { required: true });
-    const vaultToken = core.getInput('vault-token', { required: true });
+    const vaultUsername = core.getInput('vault-username', { required: true });
+    const vaultPassword = core.getInput('vault-password', { required: true });
     const vaultSecretPath = core.getInput('vault-secret-path', { required: true });
     const templateFile = core.getInput('template-file', { required: true });
     const outputFile = core.getInput('output-file', { required: true });
+
+    // Authenticate with Vault using username and password
+    const authResponse = await axios.post(`${vaultUrl}/v1/auth/userpass/login/${vaultUsername}`, {
+      password: vaultPassword
+    });
+
+    const clientToken = authResponse.data.auth.client_token;
 
     // Fetch secrets from Vault
     const vaultAddr = `${vaultUrl}/v1/${vaultSecretPath}`;
     core.info(`Fetching secrets from ${vaultAddr}`)
 
-    const response = await axios.get(vaultAddr, {
-      headers: { 'X-Vault-Token': vaultToken },
+    const secretsResponse = await axios.get(vaultAddr, {
+      headers: { 'X-Vault-Token': clientToken },
     });
 
-    const secrets = response.data.data.data;
+    const secrets = secretsResponse.data.data.data;
 
     // Read template file
     let template = await fs.readFile(templateFile, 'utf8');
