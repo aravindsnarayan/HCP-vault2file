@@ -1,5 +1,5 @@
 {
-  "name": "hashicorp-vault-secret-replacer",
+  "name": "hcp-vault2file",
   "version": "1.0.0",
   "description": "Fetches secrets from HashiCorp Vault and replaces placeholders in a template file.",
   "main": "src/index.js",

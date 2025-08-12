@@ -1,6 +1,9 @@
-name: 'HashiCorp Vault Secret Replacer'
-description: 'Fetches secrets from HashiCorp Vault and replaces placeholders in a template file.'
-author: 'Gemini'
+name: 'HCP Vault to File'
+description: 'Fetch secrets from HashiCorp Vault and generate config files from templates'
+author: 'aravindsnarayan'
+branding:
+  icon: 'lock'
+  color: 'purple'
 
 inputs:
   vault-url:
